@@ -1,0 +1,36 @@
+[
+  {
+    "round": 1,
+    "index": 1,
+    "skill_name": "read-paper",
+    "source": "https://github.com/be-green/papertrail/blob/50ce92c871218a197b548751bd69e9007a8e7b3d/skills/read-paper",
+    "inspected_at": "2026-11-02T09:32:14.201245+00:00",
+    "status": "success",
+    "commit": "50ce92c871218a197b548751bd69e9007a8e7b3d",
+    "pinned_url": "https://github.com/be-green/papertrail/tree/50ce92c871218a197b548751bd69e9007a8e7b3d/skills/read-paper",
+    "file": "candidates/round1_01_read-paper/SKILL.md",
+    "sha256": "98d77ed24a2cf6e9536c6f91054abd9b50f2c2677f4340c46f6938ddd9879ccf"
+  },
+  {
+    "round": 2,
+    "index": 1,
+    "skill_name": "scientific-critical-thinking",
+    "source": "https://github.com/Tnemo65/template/blob/6da282e77241b32e86822524955c0555bd1fc029/.cursor/skills/13-research-ideation/scientific-critical-thinking",
+    "inspected_at": "2026-11-02T09:32:33.195892+00:00",
+    "status": "success",
+    "commit": "6da282e77241b32e86822524955c0555bd1fc029",
+    "pinned_url": "https://github.com/Tnemo65/template/tree/6da282e77241b32e86822524955c0555bd1fc029/.cursor/skills/13-research-ideation/scientific-critical-thinking",
+    "file": "candidates/round2_01_scientific-critical-thinking/SKILL.md",
+    "sha256": "662e14378fab7b8529ce130d96058d4b371d7333b7f77d96fb639103be481eb7"
+  },
+  {
+    "round": 2,
+    "index": 2,
+    "skill_name": "scientific-critical-thinking",
+    "source": "https://github.com/jmead/cursor-config/blob/42a33c5779c90d6c134830a59a4ef3c8bb2526b7/skills/scientific-critical-thinking",
+    "inspected_at": "2026-11-02T09:32:36.783930+00:00",
+    "status": "error",
+    "error_type": "HTTPError",
+    "error": "HTTP Error 404: Not Found"
+  }
+]

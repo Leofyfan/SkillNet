@@ -1,0 +1,149 @@
+On-Policy Self-Distillation for Large Language Models
+0
+25
+50
+75
+100
+Gradient Update Steps
+48
+50
+52
+54
+56
+58
+Avg@12 Accuracy (%)
+AIME24
+0
+25
+50
+75
+100
+Gradient Update Steps
+34
+36
+38
+40
+42
+44
+46
+Avg@12 Accuracy (%)
+AIME25
+0
+25
+50
+75
+100
+Gradient Update Steps
+22
+24
+26
+28
+30
+32
+Avg@12 Accuracy (%)
+HMMT25
+0
+10
+20
+Tokens Generated (×106)
+37
+38
+39
+40
+41
+42
+Avg@12 Accuracy (%)
+Average
+10
+30
+50
+70
+90
+Gradient Update Steps
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Fraction of Batches
+Zero Reward Std Frac. of GRPO
+GRPO
+OPSD
+Figure 3. Token Efficiency of OPSD. We compare OPSD and GRPO on Qwen3-1.7B under the same effective training batch size,
+reporting Avg@12 accuracy with training steps and total tokens generated. Generation is capped at 1024 tokens for OPSD and 16k for
+GRPO. At the same number of training steps, OPSD uses significantly fewer tokens but outperforms GRPO on all benchmarks. Despite
+sampling more tokens, GRPO only receives a binary outcome reward, and stagnates due to reward diversity collapse (rightmost plot):
+more than half of its batches have zero reward standard deviation within 100 steps, yielding no gradient signal. OPSD sidesteps this
+disadvantage of outcome-based rewards by learning from a dense distillation loss even with fewer generated tokens.
+OPSD as dense-reward policy gradient and comparison
+to STaR.
+The objective in Equation (9) can be seen as pol-
+icy gradient with dense, token-level rewards. In Appendix
+Section D, we formalize this and contrast with STaR (Ze-
+likman et al., 2022), a closely related method that also uses
+the same model to generate reasoning traces, then performs
+rejection sampling followed by SFT on correct traces. This
+procedure can be viewed as policy gradient with a sequence-
+level binary reward that assigns identical credit to all tokens
+and vanishes when samples are incorrect. In contrast, OPSD
+provides feedback at every token position regardless of final-
+answer correctness.
+4. Experiments
+We conduct comprehensive experiments to answer the fol-
+lowing research questions:
+(1) How does OPSD compare to SFT and GRPO in rea-
+soning performance and sample efficiency? (§4.2)
+(2) How does per-token pointwise KL clipping in OPSD
+help stabilizing training? (§4.3.3)
+(3) What is the effect of generation style, generation length
+on performance? (§4.3.4)
+(4) Does full-vocabulary logit distillation provide benefits
+over sampled-token policy gradient? (§4.3.5)
+4.1. Experimental Setup
+Models and datasets.
+We experiment with the
+Qwen3 (Team, 2025b) model family at three scales: Qwen3-
+1.7B, Qwen3-4B, and Qwen3-8B, using the instruct-tuned
+versions. For training data, we use the mathematical reason-
+ing subset of OpenThoughts (Guha et al., 2025), sampling
+up to 30K problem-solution pairs with chain-of-thought
+reasoning. We evaluate on competition-level mathematics
+benchmarks including AIME 2024, AIME 2025, HMMT
+2025.
+Baselines. We compare against two methods trained on the
+same dataset: (1) SFT, standard supervised fine-tuning on
+expert trajectories, which can be seen as off-policy distilla-
+tion from a more powerful LLM that generated the reasoning
+traces; (2) GRPO (Shao et al., 2024), group relative policy
+optimization with binary outcome rewards verified against
+ground-truth answers. The max generation length is set to
+16k.
+Implementation details. We fix the teacher policy to be
+the initial policy, rather than the currently updating learning
+policy, as we find this helps stabilize training and implicitly
+acts as regularization to prevent excessive deviation from
+the initial policy. We use full-vocabulary logit distillation in
+our experiments. All experiments are conducted on A100
+or H100 GPUs with LoRA (Hu et al., 2022). More experi-
+mental details are in Appendix B.
+4.2. Main Results
+Table 2 reports results on competition-level mathematical
+reasoning benchmarks. OPSD consistently outperforms SFT
+and improves over the base model across all scales, match-
+ing or exceeding GRPO in every setting. Notably, OPSD
+achieves these gains using only a single rollout per problem
+and converges within 100 steps, with each problem requir-
+ing only 1024 sampled tokens, whereas GRPO requires 8
+rollouts of 16k tokens each and may exhibit performance
+degradation in later steps due to entropy collapse—with
+most of reward standard deviations within a group being
+zero under this OpenThoughts dataset, yielding no learning
+signal and wasting sampling budget. We also observe con-
+sistent performance degradation under SFT across tasks and
+model scales when trained on the same dataset, which we
+attribute to the concise reasoning style of the ground truth
+solutions which has reduced reasoning lengths at test time.
+We attribute OPSD’s token efficiency to dense token-level
+supervision from the teacher distribution, and we hypoth-
+6

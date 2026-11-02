@@ -1,0 +1,10 @@
+{
+  "python": "3.13.5",
+  "operating_system": "Linux",
+  "release": "6.8.0-138-generic",
+  "architecture": "x86_64",
+  "skillnet_ai": "0.1.4",
+  "pymupdf": "1.26.7",
+  "agent": "Current Codex conversation; GPT-6 family per system role; exact deployed model ID unavailable",
+  "configuration": "Public SkillNet search and public GitHub download; no model endpoint credentials"
+}

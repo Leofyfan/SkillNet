@@ -1,0 +1,105 @@
+On-Policy Self-Distillation for Large Language Models
+A. Limitations and Future Directions
+Due to computational constraints, our experiments are limited to models up to 8B parameters. It remains an open question
+whether this trend continues at scales beyond 8B parameters. Several promising directions warrant further investigation.
+First, our current framework does not explicitly leverage correctness verification of generated answers; incorporating such
+signals could provide additional learning objectives beyond distribution matching. Finally, problem difficulty plays a
+crucial role in self-distillation: if reasoning problems exceed the model’s comprehension threshold, the teacher policy
+cannot provide meaningful supervision even with access to ground-truth solutions. This suggests that curriculum learning
+strategies—gradually increasing problem difficulty as the model improves—could enhance training effectiveness. Exploring
+adaptive curricula that maintain problems at the frontier of model capabilities represents an important direction for scaling
+OPSD to more challenging reasoning tasks.
+B. Experimental Details
+Table 5. Per-token KL divergence by token category across generation styles. Mean per-token KL divergence broken down by token
+category (see Appendix C for detailed definitions), averaged over 10 problems. Thinking Mode OFF/ON indicates whether the student or
+teacher LLM’s prompt format enables thinking mode. We find when student’s generation’s thinking mode is off and when the teacher’s
+thinking mode is on, the KL signal on math related tokens are the highest. And we choose this setup for our experiments.
+Qwen3-1.7B
+Qwen3-4B
+Qwen3-8B
+Student Teacher Style Math Other Style Math Other Style Math Other
+TM-off TM-off
+0.68
+0.12
+0.11
+0.61
+0.06
+0.10
+0.56
+0.05
+0.11
+TM-on
+TM-off
+0.51
+0.10
+0.17
+0.41
+0.05
+0.18
+0.33
+0.05
+0.15
+TM-on
+TM-on
+0.51
+0.09
+0.08
+0.50
+0.04
+0.09
+0.42
+0.04
+0.08
+TM-off TM-on
+0.85
+0.14
+0.25
+0.92
+0.10
+0.29
+0.79
+0.06
+0.25
+We provide the training and evaluation configurations for our SFT, GRPO and OPSD experiments in Tables 7, 6 and 8.
+Note that we adopt the Thinking-Mode-off student / Thinking-Mode-on teacher configuration for main OPSD experiments.
+For more experiment details, please refer to our released training code in https://github.com/siyan-zhao/OPSD.We didn’t
+conduct tuning for the clipping parameter τ, optimizing this hyperparameter may yield further performance gains within the
+same 100-step budget for larger models.
+Table 6. Training Configuration for GRPO and OPSD
+Parameter
+GRPO
+OPSD
+Learning Rate
+5 × 10−6
+5 × 10−6
+Effective Batch Size
+32
+32
+LoRA Rank (r)
+64
+64
+LoRA Alpha (α)
+128
+128
+LoRA Target Modules
+q proj, k proj, v proj, o proj,
+gate proj, up proj, down proj
+Max Completion Length
+16,000
+1024
+Number of Generations per Prompt
+8
+1
+Sampling Temperature
+1.2
+1.1
+KL Coefficient (β)
+0.0
+–
+Training Steps
+500
+100
+All experiments were conducted using 8 A100 or H100 GPUs with gradient checkpointing and Flash Attention 2 for memory
+efficiency. We use the AdamW (Loshchilov & Hutter, 2017) optimizer and bfloat16 precision for all training runs. For
+OPSD, unless otherwise stated, we used full-vocabulary logit distillation.
+13

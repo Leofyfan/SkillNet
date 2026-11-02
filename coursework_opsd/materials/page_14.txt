@@ -1,0 +1,60 @@
+On-Policy Self-Distillation for Large Language Models
+Table 7. Training Configuration for SFT.
+Parameter
+SFT
+Learning Rate
+5 × 10−6
+Effective Batch Size
+32
+LoRA Rank (r)
+64
+LoRA Alpha (α)
+128
+LoRA Target Modules
+q proj, k proj, v proj, o proj,
+gate proj, up proj, down proj
+Max Sequence Length
+16000
+Number of Training Step
+100
+Table 8. Evaluation Parameters.
+Parameter
+Value
+Max New Tokens
+38912
+Thinking Mode
+Enabled
+Top-p
+0.95
+Top-k
+-1
+Min-p
+0.0
+Presence Penalty
+0.0
+Samples per Prompt
+12
+Temperature
+1.0
+C. Token Category Definitions
+We categorize tokens into style and math groups using predefined keyword lists. These keyword sets are used to analyze the
+per-token KL divergence stylistic tokens and mathematical knowledge tokens as in Section 4.3.1.
+Style Tokens.
+maybe, perhaps, probably, possibly, let, okay, ok, alright, hmm, wait, because, since, so, thus, hence,
+therefore, but, however, although, though, yet, or, alternatively, instead, otherwise, actually, really, just, simply, basically,
+very, quite, pretty, rather, fairly, now, then, next, first, second, finally, try, see, check, note, recall, think, idea, strategy,
+approach, method, way, would, could, should, might, can, huge, large, big, small, tiny, interesting, tricky, complex, simple.
+Math Tokens.
+exponential, exponent, power, powers, base, logarithm, logarithms, log, ln, compare, comparing, compari-
+son, less, equal, larger, smaller, greater, factor, factors, prime, divisible, equation, expression, formula, inequality, rational,
+irrational, real, integer, coefficient, variable, constant, sum, product, difference, quotient, fraction, denominator, numerator,
+root, square, cube, nth, maximum, minimum, optimize, bound.
+D. Policy-Gradient Interpretation of OPSD and Comparison to STaR
+Our OPSD objective in Equation (9) can be interpreted as a policy-gradient update with a dense, token-level reward signal
+derived from privileged information. In this section, we show: (1) OPSD can be seen as a dense-reward policy gradient, and
+(2) we contrast OPSD with STaR, demonstrating that STaR’s learning signal is sequence-level while OPSD is token-level.
+D.1. STaR as Sequence-Level Policy-Gradient
+STaR (Zelikman et al., 2022) can be viewed as an approximation to an RL-style policy gradient objective. The language
+model pθ induces a joint distribution over rationale r and answer y:
+pθ(r, y | x) = pθ(r | x) pθ(y | x, r),
+14

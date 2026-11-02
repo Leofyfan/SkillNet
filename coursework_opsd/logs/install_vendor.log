@@ -1,0 +1,24 @@
+Obtaining file:///data/zju-170/yuanfan/projects/SkillNet/coursework_opsd/vendor/skillnet-ai
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: skillnet-ai
+  Building editable for skillnet-ai (pyproject.toml): started
+  Building editable for skillnet-ai (pyproject.toml): finished with status 'done'
+  Created wheel for skillnet-ai: filename=skillnet_ai-0.1.4-0.editable-py3-none-any.whl size=12516 sha256=51a4900c6a467b787ddcc1b368adc7ae8129aef6851bc56b5b16ce767193dd96
+  Stored in directory: /data/zju-170/yuanfan/projects/SkillNet/coursework_opsd/.runtime/tmp/pip-ephem-wheel-cache-16r866tm/wheels/70/3a/03/18a8c0f3aa46e1cf5a7468c93418f1b9a08d8681b22d75f184
+Successfully built skillnet-ai
+Installing collected packages: skillnet-ai
+  Attempting uninstall: skillnet-ai
+    Found existing installation: skillnet-ai 0.1.4
+    Uninstalling skillnet-ai-0.1.4:
+      Successfully uninstalled skillnet-ai-0.1.4
+Successfully installed skillnet-ai-0.1.4
+
+[notice] A new release of pip is available: 25.1.1 -> 26.2.2
+[notice] To update, run: /data/zju-170/yuanfan/projects/SkillNet/coursework_opsd/.venv/bin/python -m pip install --upgrade pip

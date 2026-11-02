@@ -1,0 +1,89 @@
+Self-Distilled Reasoner:
+On-Policy Self-Distillation for Large Language Models
+Siyan Zhao† 1 Zhihui Xie 2 Mengchen Liu 3 Jing Huang 3 Guan Pang 3 Feiyu Chen∗,‡ 3 Aditya Grover∗1
+Abstract
+Knowledge distillation improves large language
+model (LLM) reasoning by compressing the
+knowledge of a teacher LLM to train smaller
+LLMs. On-policy distillation advances this ap-
+proach by having the student sample its own tra-
+jectories while a teacher LLM provides dense
+token-level supervision, addressing the distribu-
+tion mismatch between training and inference
+in off-policy distillation methods. However, on-
+policy distillation typically requires a separate,
+often larger, teacher LLM and does not explic-
+itly leverage ground-truth solutions available in
+reasoning datasets.
+Inspired by the intuition
+that a sufficiently capable LLM can rationalize
+external privileged reasoning traces and teach
+its weaker self, we introduce On-Policy Self-
+Distillation (OPSD), a learning algorithm where
+a single LLM acts as both teacher and student
+with different contexts. The teacher policy con-
+ditions on privileged information (e.g., verified
+reasoning traces) while the student policy sees
+only the question; training minimizes the per-
+token divergence between these distributions over
+the student’s own rollouts. We demonstrate the
+efficacy of our method on multiple mathemati-
+cal reasoning benchmarks, achieving superior to-
+ken efficiency compared to reinforcement learn-
+ing methods and better performance over off-
+policy distillation methods. Code repo: https:
+//github.com/siyan-zhao/OPSD.
+1. Introduction
+Recent advances in large language models (LLMs) have
+demonstrated impressive capabilities in reasoning and in-
+struction following. Achieving these capabilities during
+*Equal advising,† Work done at UCLA and during Siyan’s part-
+time internship at Meta.,‡ Work done at Meta.
+1UCLA 2HKU
+3Meta Superintelligence Labs. Correspondence to: Siyan Zhao
+<siyanz@g.ucla.edu>.
+Preprint.
+post-training typically relies on reinforcement learning
+methods such as Reinforcement Learning with Verifiable
+Rewards (RLVR) (e.g., GRPO (Shao et al., 2024; Guo et al.,
+2025; Team et al., 2025; Rastogi et al., 2025; Yu et al.,
+2025)), supervised fine-tuning (SFT) on high-quality rea-
+soning datasets (Guha et al., 2025; Team et al., 2025; Xi-
+aomi, 2026), or knowledge distillation, where recent work
+has shown that distillation from advanced teacher models
+can outperform RL in both performance and training effi-
+ciency (Yang et al., 2025; Xiaomi, 2026; Lu & Lab, 2025).
+Despite their respective successes, each approach has in-
+herent limitations. RLVR suffers from inefficiencies in-
+cluding: (1) sampling a group of responses per prompt is
+computationally expensive and can introduce high variance
+in estimating the true value function; moreover, when all
+samples are either correct or incorrect, the gradient sig-
+nal vanishes (Yu et al., 2025; Zhao et al., 2025); and (2)
+the reward signal is sparse and uniformly applied across
+all tokens in the generated output, neglecting fine-grained
+token-level feedback. Supervised fine-tuning suffers from
+exposure bias and weaker generalization (Agarwal et al.,
+2024; Chu et al., 2025). Traditional knowledge distillation
+provides dense token-level supervision from a teacher model
+but relies on off-policy data (Hinton et al., 2015). Recent
+advances in on-policy distillation—where a student model
+samples its own trajectories while a teacher policy provides
+dense token-level supervision—have demonstrated superior
+sample efficiency by combining the distributional realism
+of on-policy training with dense feedback (Agarwal et al.,
+2024; Lu & Lab, 2025).
+While on-policy distillation has shown strong performance,
+it relies on a distinct teacher model to supervise the student.
+Given that modern LLMs already exhibit strong reasoning
+capabilities, we ask this research question: can a model
+effectively serve as its own teacher through self-distillation?
+Our approach is inspired by human learning: after solving a
+problem incorrectly, a student can examine the correct solu-
+tion, rationalize its steps, and identify where their reasoning
+failed. Prior work has shown that for LLMs, evaluation is
+often easier than generation (Sun et al., 2024; Naor, 1996).
+We hypothesize that rationalization—explaining a given cor-
+rect answer—is similarly easier than generation. Motivated
+1
+arXiv:2601.18734v3  [cs.LG]  20 Mar 2026

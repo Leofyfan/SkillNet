@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-11-02T09:42:04.549727+00:00",
+  "status": "passed",
+  "checks": [
+    "fixed-version paper hash",
+    "downloaded skill hashes and SDK structure validation",
+    "two successful SDK searches; three candidate inspection attempts",
+    "Table 2 numbers extracted directly from PDF and differences recomputed",
+    "teacher implementation sentence located on PDF page 6",
+    "required artifacts and local Markdown links",
+    "Python script syntax"
+  ],
+  "skill_validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": []
+  },
+  "limitation": "Offline artifact checks do not reproduce OPSD training or provide independent human review."
+}

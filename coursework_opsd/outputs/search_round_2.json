@@ -1,0 +1,111 @@
+{
+  "started_at": "2026-11-02T09:32:25.911754+00:00",
+  "endpoint": "http://api-skillnet.openkg.cn",
+  "sdk": "skillnet-ai 0.1.4",
+  "parameters": {
+    "q": "scientific critical thinking",
+    "mode": "keyword",
+    "limit": 3
+  },
+  "status": "success",
+  "results": [
+    {
+      "skill_name": "scientific-critical-thinking",
+      "skill_description": "Apply rigorous critical thinking to evaluate research claims, identify logical fallacies, expose methodological weaknesses, and stress-test scientific arguments. Use when critiquing a paper, evaluating competing approaches, identifying attack vectors against competitor work, or strengthening your own paper's claims.",
+      "author": "Tnemo65",
+      "stars": 0,
+      "skill_url": "https://github.com/Tnemo65/template/blob/6da282e77241b32e86822524955c0555bd1fc029/.cursor/skills/13-research-ideation/scientific-critical-thinking",
+      "category": "Research",
+      "evaluation": {
+        "safety": {
+          "level": "Good",
+          "reason": "The skill provides a framework for academic critique of scientific papers using only Read and Write tools. The 'attack' language refers to intellectual analysis of claims, not harmful actions against systems. No dangerous tools or destructive operations are involved."
+        },
+        "completeness": {
+          "level": "Good",
+          "reason": "The SKILL.md provides a comprehensive framework with clear steps: Claim Decomposition, Methodology Audit Checklist, Logical Fallacy Detection, Scope Mismatch Attack, and Complexity Claim Verification. It includes concrete checklists, examples, and an output template. As an instruction-only skill for critical analysis, it covers all essential elements needed for an agent to execute the workflow."
+        },
+        "executability": {
+          "level": "Good",
+          "reason": "This is an instruction-only skill that provides actionable guidance through detailed checklists and frameworks. An agent can follow the structured approach using typical LLM tools (reading papers, analyzing claims, writing critiques). The absence of runnable scripts is acceptable as the skill does not require code execution - it guides intellectual analysis."
+        },
+        "cost_awareness": {
+          "level": "Good",
+          "reason": "The task involves intellectual analysis of text - inherently lightweight with no heavy computation, large datasets, or external API calls. The allowed tools (Read/Write) are minimal. The framework does not suggest any expensive operations or unbounded processing."
+        },
+        "maintainability": {
+          "level": "Good",
+          "reason": "The skill has a narrow, modular scope focused on a specific analytical methodology. Inputs (a paper to critique) and outputs (structured critique) are clearly defined. The framework is self-contained with clear boundaries and can be applied to different papers without modification. No tight coupling to external systems."
+        }
+      },
+      "repo_name": "Tnemo65/template",
+      "skill_dir": "Tnemo65/template/.cursor/skills/13-research-ideation/scientific-critical-thinking"
+    },
+    {
+      "skill_name": "scientific-critical-thinking",
+      "skill_description": "Evaluate research rigor. Assess methodology, experimental design, statistical validity, biases, confounding, evidence quality (GRADE, Cochrane ROB), for critical analysis of scientific claims.",
+      "author": "jmead",
+      "stars": 1,
+      "skill_url": "https://github.com/jmead/cursor-config/blob/42a33c5779c90d6c134830a59a4ef3c8bb2526b7/skills/scientific-critical-thinking",
+      "category": "Science",
+      "evaluation": {
+        "safety": {
+          "level": "Average",
+          "reason": "The skill explicitly covers clinical evidence frameworks (mentions GRADE and Cochrane ROB and application to clinical trials) but the document contains no medical disclaimer or limits on providing medical/clinical recommendations, so safety cannot be rated Good by the provided guidance."
+        },
+        "completeness": {
+          "level": "Average",
+          "reason": "The SKILL.md contains extensive checklists (methodology, bias, statistics, evidence quality) and references, but it omits concrete output templates, scoring rubrics, and standardized reporting formats (e.g., specific GRADE downgrade/upgrade tables or ROB templates) needed for fully actionable, reproducible assessments."
+        },
+        "executability": {
+          "level": "Good",
+          "reason": "This is an instruction-only skill with clear, actionable checklists and referenced materials (e.g., methodology and bias guides) and even an example command for schematic generation, so an agent can follow the guidance with typical LLM tools despite no runnable implementation scripts."
+        },
+        "cost_awareness": {
+          "level": "Average",
+          "reason": "Most guidance is low-cost (textual checklists), but the SKILL.md mandates default generation of publication-quality schematics via the scientific-schematics skill and iterative refinement without any limits or cost-control guidance, which could incur significant compute/cost without mitigation."
+        },
+        "maintainability": {
+          "level": "Good",
+          "reason": "The skill is modular (separate sections for methodology, bias, statistics, evidence quality) and points to reference files for detail, making it straightforward to update or extend without heavy coupling to specific code."
+        }
+      },
+      "repo_name": "jmead/cursor-config",
+      "skill_dir": "jmead/cursor-config/skills/scientific-critical-thinking"
+    },
+    {
+      "skill_name": "scientific-critical-thinking",
+      "skill_description": "Evaluate research rigor. Assess methodology, experimental design, statistical validity, biases, confounding, evidence quality (GRADE, Cochrane ROB), for critical analysis of scientific claims.",
+      "author": "davila7",
+      "stars": 22236,
+      "skill_url": "https://github.com/davila7/claude-code-templates/blob/444b020ca1804271570f20e0aa26918ad206f5f5/cli-tool/components/skills/scientific/scientific-critical-thinking",
+      "category": "Research",
+      "evaluation": {
+        "safety": {
+          "level": "Average",
+          "reason": "The skill is a benign critical-thinking guideline (SKILL.md contains checklists and bias/statistics frameworks) but it grants broad allowed-tools including 'Bash' which is unnecessary for the described analytic tasks and per policy requires lowering safety; there are no explicit safeguard/disclaimer statements for sensitive domains."
+        },
+        "completeness": {
+          "level": "Good",
+          "reason": "The SKILL.md provides detailed, prescriptive checklists for methodology, bias detection, statistical review, GRADE/evidence assessment, and references (e.g., experimental_design.md, common_biases.md, statistical_pitfalls.md), plus guidance for schematics generation, covering the essential steps needed to apply the skill."
+        },
+        "executability": {
+          "level": "Average",
+          "reason": "As an instruction-only skill the guidance is actionable (concrete checklists and a schematic-generation example), but no runnable scripts are present ('No runnable python scripts found') and the allowed-tools list (including 'Bash') is broader than the analytic scope, which reduces executability confidence."
+        },
+        "cost_awareness": {
+          "level": "Good",
+          "reason": "The skill is guidance- and checklist-oriented (textual analyses in SKILL.md) and does not prescribe heavy computation or continuous processing, so it is inherently low-cost; schematic generation is optional and scoped via an example command."
+        },
+        "maintainability": {
+          "level": "Good",
+          "reason": "The skill is modular with clearly separated capabilities and references (core capabilities sections and external reference files), making it straightforward to adapt or compose with other skills such as scientific-schematics."
+        },
+        "script_execution": []
+      },
+      "repo_name": "davila7/claude-code-templates",
+      "skill_dir": "davila7/claude-code-templates/cli-tool/components/skills/scientific/scientific-critical-thinking"
+    }
+  ],
+  "elapsed_seconds": 0.228
+}

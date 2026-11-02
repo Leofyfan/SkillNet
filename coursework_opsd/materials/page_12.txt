@@ -1,0 +1,39 @@
+On-Policy Self-Distillation for Large Language Models
+Yu, L., Jiang, W., Shi, H., Yu, J., Liu, Z., Zhang, Y., Kwok,
+J. T., Li, Z., Weller, A., and Liu, W. Metamath: Boot-
+strap your own mathematical questions for large language
+models. arXiv preprint arXiv:2309.12284, 2023.
+Yu, Q., Zhang, Z., Zhu, R., Yuan, Y., Zuo, X., Yue, Y., Fan,
+T., Liu, G., Liu, L., Liu, X., et al. Dapo: An open-source
+llm reinforcement learning system at scale, 2025. URL
+https://arxiv. org/abs/2503.14476, 2025.
+Yuan, W., Pang, R. Y., Cho, K., Li, X., Sukhbaatar, S., Xu,
+J., and Weston, J. E. Self-rewarding language models.
+In International Conference on Machine Learning, pp.
+57905–57923. PMLR, 2024.
+Yue, Y., Yuan, Y., Yu, Q., Zuo, X., Zhu, R., Xu, W., Chen,
+J., Wang, C., Fan, T., Du, Z., et al. Vapo: Efficient and
+reliable reinforcement learning for advanced reasoning
+tasks. arXiv preprint arXiv:2504.05118, 2025.
+Zelikman, E., Wu, Y., Mu, J., and Goodman, N. Star: Boot-
+strapping reasoning with reasoning. Advances in Neural
+Information Processing Systems, 35:15476–15488, 2022.
+Zhang, Z., Zheng, C., Wu, Y., Zhang, B., Lin, R., Yu, B.,
+Liu, D., Zhou, J., and Lin, J. The lessons of developing
+process reward models in mathematical reasoning. arXiv
+preprint arXiv:2501.07301, 2025.
+Zhao, S., Liu, M., Huang, J., Liu, M., Wang, C., Liu, B.,
+Tian, Y., Pang, G., Bell, S., Grover, A., et al. Inpainting-
+guided policy optimization for diffusion large language
+models. arXiv preprint arXiv:2509.10396, 2025.
+Zheng, C., Liu, S., Li, M., Chen, X.-H., Yu, B., Gao,
+C., Dang, K., Liu, Y., Men, R., Yang, A., et al.
+Group sequence policy optimization.
+arXiv preprint
+arXiv:2507.18071, 2025.
+Zhou, C., Liu, P., Xu, P., Iyer, S., Sun, J., Mao, Y., Ma,
+X., Efrat, A., Yu, P., Yu, L., et al. Lima: less is more
+for alignment. In Proceedings of the 37th International
+Conference on Neural Information Processing Systems,
+pp. 55006–55021, 2023.
+12

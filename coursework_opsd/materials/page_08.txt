@@ -1,0 +1,129 @@
+On-Policy Self-Distillation for Large Language Models
+the most effective learning signal, we analyze the forward
+KL divergence KL(pT ∥pS) across all four student/teacher
+mode pairings, categorizing tokens into three groups: math
+(numerals, operators, and mathematical keywords), style
+(reasoning connectives), and other. Table 5 reports the
+mean per-token KL within each category.
+Across all model sizes, the TM-off student paired with a
+TM-on teacher yields the largest KL on math tokens, in-
+dicating stronger supervision on mathematically relevant
+tokens. The reported KL values correspond to the expected
+divergence over the vocabulary at each position; as shown
+in Table 5, this expectation is highly skewed, with stylistic
+tokens contributing disproportionately large values. This
+motivates our use of pointwise clipping to control such
+heavy-tailed contributions. Empirically, this configuration
+achieves the best downstream performance. We therefore
+adopt the TM-off student / TM-on teacher configuration.
+0
+25
+50
+75
+100
+Gradient Update Steps
+48
+50
+52
+54
+56
+58
+Avg@12 AIME24 Accuracy (%)
+w/o per-token KL Clipping
+w/ per-token KL Clipping
+Figure 4. Effect of Per-Token pointwise KL Clipping on Qwen3-
+1.7B evaluated on AIME24. Clipping prevents performance col-
+lapse.
+4.3.3. EFFECT OF PER-TOKEN POINTWISE CLIPPING
+As shown in Table 5, stylistic tokens can exhibit higher
+KL divergence than math-related tokens, causing them to
+dominate the training signal. We mitigate this issue us-
+ing per-token pointwise clipping. As shown in Figure 4
+for Qwen3-1.7B, clipping stabilizes training and prevents
+performance degradation, which is particularly important
+given that OPSD converges rapidly within a hundred steps
+of training.
+4.3.4. EFFECT OF GENERATION LENGTH
+Since our objective operates at the token level (Eq. 6), the
+number of generated tokens per sample directly determines
+the amount of supervision signal available to the student.
+Longer sequences expose the student to more teacher feed-
+back, but they also increase computational cost and may
+introduce noisy or uninformative continuations. To study
+this trade-off, we conduct an ablation on Qwen3-1.7B by
+varying the generation length of on-policy sampled stu-
+dent responses among 1024 and 4096 tokens and use full-
+0
+25
+50
+75
+100
+Gradient Update Steps
+34
+36
+38
+40
+42
+44
+46
+Avg@12 Accuracy (%)
+AIME25 (Qwen3-1.7B)
+Gen Length 4096
+Gen Length 1024
+0
+25
+50
+75
+100
+Gradient Update Steps
+50
+52
+54
+56
+58
+60
+Avg@12 Accuracy (%)
+AIME24 (Qwen3-1.7B)
+Gen Length 4096
+Gen Length 1024
+Figure 5. Effect of Generation Length on Qwen3-1.7B. We com-
+pare student generation length of 1024 vs 4096 on AIME25 and
+AIME24.
+vocabulary logit distillation. As shown in Figure 5, in-
+creasing the generation length does not lead to consistent
+improvements across either task. We attribute this to early
+tokens being more critical for learning: as the student gen-
+eration grows longer, later tokens become increasingly pre-
+dictable to the teacher when conditioned on a sufficiently
+long student prefix so less penalties are applied to later to-
+kens. This phenomenon is also noted in (Lu & Lab, 2025).
+4.3.5. LEARNING OBJECTIVE COMPARISON: FULL
+VOCABULARY LOGITS DISTILLATION VS.
+SAMPLED-TOKEN DISTILLATION
+Our objective in Eq. 6 is defined as a per-token discrepancy
+between the teacher and student distributions. In practice,
+OPSD can instantiate this objective in two ways. (1) Full-
+vocabulary logit distillation (as in GKD (Agarwal et al.,
+2024)): for each token position, we compute D(pT ∥pS)
+over the entire vocabulary via a full softmax, yielding a
+proper token-level f-divergence between the two policies.
+(2) Sampled-token advantage policy-gradient objective
+(as in the on-policy distillation method of Lu & Lab (2025)):
+we evaluate teacher and student log-probabilities only at
+the token actually sampled by the student, ˆyn, and use
+the reverse-KL term as a scalar advantage inside a policy-
+gradient-style loss. Thus, the first variant directly matches
+full token distributions, whereas the second optimizes an on-
+policy RL objective shaped by the teacher’s log-probabilities
+rather than a full-distribution divergence. We compare these
+variants on Qwen3-4B using a 2048-token generation bud-
+get during distillation. Table 4 summarizes the results. The
+full-vocabulary divergence objective provides a consistent
+gain over the sampled-token objective. This suggests that
+exposing the student to the full teacher distribution offers
+richer supervision than relying solely on per-token on-policy
+shaping. However, the full-vocabulary computation incurs
+higher peak memory usage due to storing vocabulary-sized
+logits at every position, indicating a trade-off between per-
+formance and efficiency.
+8

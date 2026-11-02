@@ -1,0 +1,138 @@
+On-Policy Self-Distillation for Large Language Models
+Table 2. Performance comparison on mathematical reasoning benchmarks for Qwen3 models. We report Avg@12 under the sampling
+configuration recommended in the Qwen3 blog (temperature 1.0, maximum generation length 38k); full details are provided in Table 8.
+For OPSD, we evaluate checkpoints every 20 steps up to 100 steps and report the best score. For GRPO, we report the peak performance
+within 500 training steps, though we find GRPO performance to decrease for some tasks due to entropy collapse in later steps. For SFT,
+we train on the same number of samples as OPSD. SFT performance degrades due to fine-tuning on concise reasoning solutions and
+reduces generation length at test time, whereas OPSD transforms them into dense learning signal through rationalization.
+Method
+AIME24
+AIME25
+HMMT25
+Average
+Qwen3-8B
+Base (Instruct)
+75.8
+65.6
+43.9
+61.8
++ SFT
+72.3
+64.2
+42.9
+59.8
++ GRPO
+76.4
+68.9
+46.7
+64.0
++ OPSD
+77.8
+70.8
+45.8
+64.8
+Qwen3-4B
+Base (Instruct)
+74.9
+66.4
+42.2
+61.2
++ SFT
+70.2
+62.3
+43.4
+58.6
++ GRPO
+75.6
+68.1
+44.4
+62.7
++ OPSD
+76.4
+68.3
+46.1
+63.6
+Qwen3-1.7B
+Base (Instruct)
+51.5
+36.7
+23.1
+37.1
++ SFT
+48.4
+36.3
+22.7
+35.8
++ GRPO
+51.1
+38.3
+23.7
+37.7
++ OPSD
+57.2
+43.9
+29.2
+43.4
+esize that earlier tokens may contribute more to effective
+distillation as they could represent more critical branching
+points in the reasoning process.
+As shown in Figure 3, OPSD achieves higher token learn-
+ing efficiency within 100 steps of training as compared to
+GRPO. Within 100 steps, GRPO’s performance stagnates
+with less learning signal when the outcome reward within as
+sampling group remains the same, leading to zero gradient.
+These results suggest that OPSD may extract learning signal
+from the same reasoning datasets more efficiently than both
+GRPO and SFT, while substantially reducing training time.
+4.3. Ablation Studies & Discussions
+In this section, we conduct extensive ablations to study
+key design choices in OPSD, including (1) the divergence
+objective, (2) the generation styles of the student and teacher
+(e.g., thinking-mode on/off), (3) the effect of per-token KL
+clipping, (4) the impact of student generation length, and (5)
+comparison between full-vocabulary logit distillation with
+sampled-token distillation.
+4.3.1. EFFECT OF DIVERGENCE OBJECTIVE
+A key design choice in OPSD is the divergence used for per-
+token distribution matching between the privileged teacher
+and the student. We compare forward KL, reverse KL, and
+JSD on AIME25 with Qwen3-1.7B in Table 3. All ob-
+jectives are evaluated under the same pointwise clipping
+scheme for stability. Forward KL consistently yields the
+strongest gains, improving performance from 36.7 to 43.9
+at step 50 and remaining above the baseline at step 100.
+In contrast, reverse KL and JSD provide limited or nega-
+tive improvements. We therefore adopt forward KL in all
+remaining experiments.
+Table 3. Comparison of divergence objectives on AIME25 with
+Qwen3-1.7B. We report Avg@12 at different training steps. For-
+ward KL significantly improves performance over the base model,
+while reverse KL and JSD (β = 0.5) show limited or negative
+gains.
+Method
+Base
+Step 50
+Step 100
+Forward KL (KL(pT ∥pS))
+36.7
+43.9
+41.1
+Reverse KL (KL(pS ∥pT ))
+36.7
+37.5
+35.0
+JSD (β = 0.5)
+36.7
+36.9
+39.0
+4.3.2. EFFECT OF GENERATION STYLES AND
+PER-TOKEN KL CLIPPING
+Another key design choice in OPSD is the generation style
+of the student and teacher models, as it determines both
+which tokens the student learns from and the style of super-
+vision provided by the teacher. Qwen3 models support two
+generation modes: Thinking Mode on (TM-on), in which
+the model produces self-reflective chain-of-thought tokens,
+and Thinking Mode off (TM-off), in which it generates re-
+sponses directly. To determine which combination yields
+7

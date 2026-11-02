@@ -1,0 +1,40 @@
+{
+  "source": "materials/2601.18734v3.pdf",
+  "pdf_page": 7,
+  "table": 2,
+  "columns": [
+    "AIME24",
+    "AIME25",
+    "HMMT25",
+    "Average"
+  ],
+  "rows": {
+    "Base": [
+      "51.5",
+      "36.7",
+      "23.1",
+      "37.1"
+    ],
+    "SFT": [
+      "48.4",
+      "36.3",
+      "22.7",
+      "35.8"
+    ],
+    "GRPO": [
+      "51.1",
+      "38.3",
+      "23.7",
+      "37.7"
+    ],
+    "OPSD": [
+      "57.2",
+      "43.9",
+      "29.2",
+      "43.4"
+    ]
+  },
+  "opsd_minus_grpo_pp": "5.7",
+  "opsd_minus_base_pp": "6.3",
+  "note": "Numeric extraction check; semantic and comparison-condition checks remain in claim_checks.md."
+}

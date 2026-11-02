@@ -1,0 +1,100 @@
+On-Policy Self-Distillation for Large Language Models
+Table 4. Ablation on divergence computation strategies for OPSD on Qwen3-4B with 2048 generation length for distillation. We report
+pass@8 accuracy on AIME25 and HMMT25. Full-distribution objectives (logit distillation) outperform sampled-token objectives.
+Method Variant
+AIME25
+HMMT25
+OPSD w/ Full-vocabulary logit distillation (Agarwal et al., 2024)
+84.1
+60.0
+OPSD w/ Sampled-token distillation (Lu & Lab, 2025)
+82.1
+57.3
+5. Related Work
+LLM Self-Training.
+Our work connects to a line of re-
+search showing that LLMs can improve by generating and
+exploiting their own supervision signals (Allen-Zhu & Li,
+2020; Xu et al., 2024b; Chen et al., 2024; Wang et al., 2023;
+Sun et al., 2023; Yuan et al., 2024; Yang et al., 2024). Clos-
+est in spirit is context distillation (Snell et al., 2022), which
+uses the same underlying model as both teacher and student
+by providing the teacher with privileged context and then
+SFT the student on the teacher’s generated outputs without
+context. This can be viewed as off-policy, where the learn-
+ing signal is a discrete token sequence. In the reasoning
+domain, ReST (Gulcehre et al., 2023) and STaR (Zelik-
+man et al., 2022) similarly rely on iterative self-training
+loops—generate rationales conditioned on hints or answers,
+filter by rewards or ground-truth answers, and fine-tune
+on successful trajectories—again yielding hard distillation;
+Mitra & Ulukus (2025) extends this to soft distillation. In-
+context editing (Qi et al., 2025) does on-policy sample from
+student and shows that context-induced knowledge can be
+internalized via soft distillation by minimizing divergences
+and demonstrates this in knowledge editing settings. OPSD
+differs from these approaches in that we perform on-policy,
+soft distillation on the student’s own rollouts for reasoning
+tasks: the teacher’s supervision is per-token distribution
+matching rather than generating a rationale for SFT. OPSD
+frames reasoning improvement as learning a conditional
+distribution induced jointly by the dataset’s ground-truth so-
+lutions and the model’s own reasoning ability. Concurrently,
+SDPO (H¨ubotter et al., 2026) explored similar algorithm
+with environment feedbacks as privilledged information
+and SDFT (Shenfeld et al., 2026) explored on-policy self-
+distillation on continual learning tasks.
+On-Policy Distillation methods train a student model di-
+rectly on trajectories sampled from its own policy, while
+a teacher model provides per-token guidance through KL-
+based regularization or related objectives (Agarwal et al.,
+2024; Xu et al., 2024a; Gu et al., 2024; Lu & Lab, 2025;
+Xiaomi, 2026; Yang et al., 2025). These approaches miti-
+gate distribution shift by optimizing directly on the student’s
+visitation distribution, but they typically rely on a distinct
+and often larger teacher model. In this work, we explore
+whether an LLM can teach itself by conditioning on more
+privileged answer information and leveraging its own rea-
+soning capability to guide a weaker version of itself toward
+improved reasoning. On-policy training paradigms are also
+widely used in robotics and deep reinforcement learning,
+such as DAgger (Ross et al., 2011), where a human teacher
+provides corrective supervision on the states visited by the
+student policy.
+Improving LLM Reasoning through SFT and RL. SFT
+and RL are two primary methods for improving LLM rea-
+soning ability. SFT on high-quality reasoning traces has
+demonstrated strong performance (Yu et al., 2023; LI et al.,
+2024; Paster et al., 2023; Team, 2025a; Ye et al., 2025;
+Muennighoff et al., 2025; Zhou et al., 2023). However,
+prior work shows that SFT can rely on memorization rather
+than robust generalization (Chu et al., 2025). In contrast,
+RL optimizes directly for outcome-based objectives can ex-
+hibit better generalization (Huan et al., 2025). More recent
+algorithms such as GRPO (Guo et al., 2025; Shao et al.,
+2024) enable scalable RL by estimating advantages from
+group-level rewards without requiring an explicit critic as in
+PPO (Schulman et al., 2017). Building on this line of work,
+a growing body of research highlights the effectiveness of
+RLVR for reasoning tasks (Yu et al., 2025; Liu et al., 2025;
+Yue et al., 2025; An et al., 2025; Zheng et al., 2025).
+6. Conclusion
+We introduced On-Policy Self-Distillation (OPSD), a sim-
+ple yet effective framework for post-training large language
+models on reasoning tasks. The intuition behind OPSD is
+that a sufficiently capable reasoning LLM can teach itself
+when it has access to privileged information about the an-
+swer to a reasoning problem, utilizing its own rationalization
+ability to grade its weaker self without access to the ground
+truth. We experimentally demonstrated that OPSD achieves
+better performance than off-policy distillation/SFT, and per-
+forms on par with or better than GRPO, while exhibiting
+significantly better sample efficiency than GRPO.
+7. Impact Statement
+This paper presents work whose goal is to advance the field
+of machine learning. Our method improves the efficiency
+of training language models for reasoning tasks, reducing
+computational costs compared to existing reinforcement
+learning approaches. We do not foresee specific negative
+societal consequences.
+9

@@ -1,0 +1,137 @@
+On-Policy Self-Distillation for Large Language Models
+SFT/Off-Policy
+GRPO
+On-Policy
+On-Policy
+Distillation
+Distillation
+Self-Distillation (Ours)
+On-Policy Data
+✗
+✓
+✓
+✓
+Dense Learning Signal
+✓
+✗
+✓
+✓
+Low Sampling Cost
+✓
+✗
+✓
+✓
+No External Teacher
+✓
+✓
+✗
+✓
+Table 1. Comparison of training methods for reasoning tasks. On-Policy Self-Distillation (OPSD) combines the advantages of on-policy
+training with dense feedback without requiring an external teacher model.
+generation at inference than those seen during training on
+the fixed dataset, leading to compounding errors. On-policy
+distillation (Agarwal et al., 2024; Lu & Lab, 2025; Xu
+et al., 2024a) addresses this by training the student on its
+own generated sequences ˆy ∼pS(·|x), obtaining dense
+token-level feedback from the teacher on these on-policy
+samples:
+LOn-Policy Distillation(θ) = Ex∼S[Eˆy∼pS(·|x)[D(pT ∥pS)(ˆy|x)]].
+(3)
+This approach connects distillation to imitation learn-
+ing (Ross et al., 2011), where the student iteratively im-
+proves by learning from the teacher’s guidance on its own
+outputs, combining the on-policy relevance of reinforcement
+learning with the dense reward signal of supervised learn-
+ing, thereby mitigating exposure bias while maintaining
+computational efficiency.
+2.2. Reinforcement Learning with Verifiable Rewards
+Reinforcement learning with verifiable rewards (RLVR)
+has emerged as a popular approach for post-training large
+language models, particularly on tasks with easily verifi-
+able outcomes such as mathematics and coding, using al-
+gorithms like Proximal Policy Optimization (PPO) (Schul-
+man et al., 2017) and Group Relative Policy Optimization
+(GRPO) (Shao et al., 2024).
+GRPO trains by sampling a group of G responses
+{o1, o2, . . . , oG} from the current policy πθ for each prob-
+lem x. Each response oi receives a binary reward ri ∈
+{0, 1} indicating correctness. The method then assigns ad-
+vantages to all tokens k = 1, . . . , |oi| within response oi
+using a group-normalized reward:
+Ai = ri −mean({rj}G
+j=1)
+std({rj}G
+j=1)
+.
+(4)
+This formulation can be understood through the value func-
+tion lens: mean({rj}G
+j=1) serves as a G-sample Monte
+Carlo estimate of the value function V (x), while the sparse
+binary reward ri represents the (undiscounted) state-action
+value Q(x, oi). Critically, all tokens within a response share
+the same advantage, as the reward signal is provided only
+at the sequence level. The GRPO objective incorporates
+a clipped surrogate loss to moderate policy updates, along
+with a reverse KL penalty to prevent excessive deviation
+from a reference policy:
+LGRPO(θ) = E
+x∼S
+o1,...,oG∼πθ(·|x)
+"
+1
+G
+G
+X
+i=1
+1
+|oi|
+|oi|
+X
+n=1
+min (ρn
+i Ai, clip (ρn
+i , 1 −ε, 1 + ε) Ai)
+−βDKL[πθ(·|x)∥πref(·|x)]
+#
+(5)
+where ρn
+i =
+πθ(on
+i |x,o<n
+i
+)
+πθold(on
+i |x,o<n
+i
+) is the importance ratio, πθold is
+the policy before the update, and ε controls the clipping
+range.
+While RLVR methods have demonstrated strong empirical
+performance, they face two key limitations: (1) the reward
+signal is sparse, providing only sequence-level feedback
+rather than token-level guidance on where errors occur, and
+(2) when all sampled responses receive identical rewards
+(all correct or all incorrect), the advantages become zero,
+preventing any policy update despite the computational cost
+of sampling.
+3. Methods
+3.1. Learning from Verifiable Reasoning Dataset
+We consider a dataset of problem-solution pairs S =
+{(xi, y⋆
+i )}N
+i=1, where each xi denotes a problem and y⋆
+i
+is the corresponding reference solution, which may include
+chain-of-thought reasoning. For brevity, we omit the sample
+index i and use (x, y⋆) to denote a generic sample from the
+dataset. We can exploit learning signals from this dataset
+from different ways: Standard supervised fine-tuning (SFT)
+on S can be viewed as off-policy distillation/imitation learn-
+ing using expert trajectories, but it suffers from distribution
+mismatch between training and inference. Reinforcement
+learning from verifiable rewards (RLVR), such as GRPO,
+addresses this by optimizing on-policy samples and assign-
+ing binary rewards by comparing generated answers against
+y⋆. However, RLVR is computationally expensive and the
+3

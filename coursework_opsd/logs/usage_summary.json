@@ -1,0 +1,17 @@
+{
+  "started_at": "2026-11-02T09:28:03+00:00",
+  "packaged_at": "2026-11-02T09:42:04.765399+00:00",
+  "elapsed_wall_seconds": 841.8,
+  "timing_scope": "Current implementation turn, including setup, tools and waiting; excludes the earlier planning turn.",
+  "formal_sdk_search_calls": 2,
+  "sdk_download_calls": 1,
+  "observed_sdk_call_seconds": 2.507,
+  "candidate_inspection_attempts": 3,
+  "candidate_content_successes": 2,
+  "connectivity_search_endpoint_attempts": 2,
+  "agent_model_requests": null,
+  "agent_tokens": null,
+  "agent_billed_cost": null,
+  "unavailable_usage_reason": "The current Codex host does not expose exact routed model ID, per-task tokens or billing.",
+  "human_intervention": "User chose paper and scope; no student review or question confirmation claimed."
+}

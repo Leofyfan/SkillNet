@@ -1,0 +1,100 @@
+On-Policy Self-Distillation for Large Language Models
+Muennighoff, N., Yang, Z., Shi, W., Li, X. L., Fei-Fei, L.,
+Hajishirzi, H., Zettlemoyer, L., Liang, P., Cand`es, E.,
+and Hashimoto, T. s1: Simple test-time scaling. arXiv
+preprint arXiv:2501.19393, 2025.
+Naor, M. Evaluation may be easier than generation. In
+Proceedings of the twenty-eighth annual ACM symposium
+on Theory of computing, pp. 74–83, 1996.
+Paster, K., Santos, M. D., Azerbayev, Z., and Ba, J. Open-
+webmath: An open dataset of high-quality mathematical
+web text, 2023.
+Qi, S., Yang, B., Jiang, K., Wang, X., Li, J., Zhong, Y., Yang,
+Y., and Zheng, Z. In-context editing: Learning knowl-
+edge from self-induced distributions. In The Thirteenth
+International Conference on Learning Representations,
+2025.
+Rastogi, A., Jiang, A. Q., Lo, A., Berrada, G., Lample,
+G., Rute, J., Barmentlo, J., Yadav, K., Khandelwal,
+K., Chandu, K. R., et al.
+Magistral.
+arXiv preprint
+arXiv:2506.10910, 2025.
+Ross, S., Gordon, G., and Bagnell, D. A reduction of imita-
+tion learning and structured prediction to no-regret online
+learning. In Proceedings of the fourteenth international
+conference on artificial intelligence and statistics, pp.
+627–635. JMLR Workshop and Conference Proceedings,
+2011.
+Sanh, V., Debut, L., Chaumond, J., and Wolf, T. Distilbert,
+a distilled version of bert: smaller, faster, cheaper and
+lighter. arXiv preprint arXiv:1910.01108, 2019.
+Schulman, J., Wolski, F., Dhariwal, P., Radford, A., and
+Klimov, O. Proximal policy optimization algorithms.
+arXiv preprint arXiv:1707.06347, 2017.
+Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang,
+H., Zhang, M., Li, Y., Wu, Y., et al. Deepseekmath: Push-
+ing the limits of mathematical reasoning in open language
+models. arXiv preprint arXiv:2402.03300, 2024.
+Shenfeld, I., Damani, M., H¨ubotter, J., and Agrawal, P.
+Self-distillation enables continual learning, 2026. URL
+https://arxiv.org/abs/2601.19897.
+Snell, C., Klein, D., and Zhong, R. Learning by distilling
+context. arXiv preprint arXiv:2209.15189, 2022.
+Sun, Z., Shen, Y., Zhou, Q., Zhang, H., Chen, Z., Cox, D.,
+Yang, Y., and Gan, C. Principle-driven self-alignment
+of language models from scratch with minimal human
+supervision. In Thirty-seventh Conference on Neural
+Information Processing Systems, 2023. URL https:
+//openreview.net/forum?id=p40XRfBX96.
+Sun, Z., Yu, L., Shen, Y., Liu, W., Yang, Y., Welleck, S.,
+and Gan, C. Easy-to-hard generalization: Scalable align-
+ment beyond human supervision. Advances in Neural
+Information Processing Systems, 37:51118–51168, 2024.
+Team, K., Bai, Y., Bao, Y., Chen, G., Chen, J., Chen,
+N., Chen, R., Chen, Y., Chen, Y., Chen, Y., et al.
+Kimi k2: Open agentic intelligence.
+arXiv preprint
+arXiv:2507.20534, 2025.
+Team, O. Open Thoughts. https://open-thoughts.ai, January
+2025a.
+Team, Q. Qwen3 technical report, 2025b. URL https:
+//arxiv.org/abs/2505.09388.
+Wang, Y., Kordi, Y., Mishra, S., Liu, A., Smith, N. A.,
+Khashabi, D., and Hajishirzi, H. Self-instruct: Aligning
+language models with self-generated instructions.
+In
+Proceedings of the 61st annual meeting of the association
+for computational linguistics (volume 1: long papers), pp.
+13484–13508, 2023.
+Xiaomi, L.-C. Mimo-v2-flash technical report, 2026. URL
+https://arxiv.org/abs/2601.02780.
+Xu, W., Han, R., Wang, Z., Le, L., Madeka, D., Li, L., Wang,
+W. Y., Agarwal, R., Lee, C.-Y., and Pfister, T. Speculative
+knowledge distillation: Bridging the teacher-student gap
+through interleaved sampling. In The Thirteenth Interna-
+tional Conference on Learning Representations, 2024a.
+Xu, X., Li, M., Tao, C., Shen, T., Cheng, R., Li, J., Xu, C.,
+Tao, D., and Zhou, T. A survey on knowledge distillation
+of large language models. CoRR, 2024b.
+Yang, A., Li, A., Yang, B., Zhang, B., Hui, B., Zheng, B.,
+Yu, B., Gao, C., Huang, C., Lv, C., Zheng, C., Liu, D.,
+Zhou, F., Huang, F., Hu, F., Ge, H., Wei, H., Lin, H., Tang,
+J., Yang, J., Tu, J., Zhang, J., Yang, J., Yang, J., Zhou,
+J., Zhou, J., Lin, J., Dang, K., Bao, K., Yang, K., Yu, L.,
+Deng, L., Li, M., Xue, M., Li, M., Zhang, P., Wang, P.,
+Zhu, Q., Men, R., Gao, R., Liu, S., Luo, S., Li, T., Tang,
+T., Yin, W., Ren, X., Wang, X., Zhang, X., Ren, X., Fan,
+Y., Su, Y., Zhang, Y., Zhang, Y., Wan, Y., Liu, Y., Wang,
+Z., Cui, Z., Zhang, Z., Zhou, Z., and Qiu, Z. Qwen3
+technical report. arXiv preprint arXiv:2505.09388, 2025.
+Yang, Z., Pang, T., Feng, H., Wang, H., Chen, W., Zhu, M.,
+and Liu, Q. Self-distillation bridges distribution gap in
+language model fine-tuning. In Proceedings of the 62nd
+Annual Meeting of the Association for Computational
+Linguistics (Volume 1: Long Papers), pp. 1028–1043,
+2024.
+Ye, Y., Huang, Z., Xiao, Y., Chern, E., Xia, S., and Liu, P.
+Limo: Less is more for reasoning, 2025. URL https:
+//arxiv.org/abs/2502.03387.
+11

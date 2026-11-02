@@ -1,0 +1,79 @@
+On-Policy Self-Distillation for Large Language Models
+where the model first samples a latent rationale r before predicting the final answer y. Given an indicator reward R(y) =
+1(y = y⋆), the expected return across the dataset S = {(xi, y⋆
+i )}N
+i=1 is
+JSTaR(θ) =
+N
+X
+i=1
+E(r,y)∼pθ(·|xi)
+
+1(y = y⋆
+i )
+
+.
+(10)
+Applying the log-derivative trick yields a policy gradient:
+∇θJSTaR(θ) =
+N
+X
+i=1
+E(r,y)∼pθ(·|xi)
+h
+1(y = y⋆
+i ) ∇θ log pθ(r, y | xi)
+i
+.
+(11)
+Note that the indicator function discards the gradient for all sampled rationales that do not lead to the correct answer y⋆
+i : this
+corresponds to the filtering step in STaR.
+One limitation is that STaR’s reward is sequence-level: the binary indicator 1(y = y⋆) provides the same signal to all tokens
+in a trajectory, offering no intermediate credit assignment. When all sampled trajectories are all incorrect, the learning signal
+vanishes.
+D.2. OPSD as Dense-Reward Policy Gradient
+The sampled-token objective in Equation (9) can also be viewed as a policy-gradient method, but with a token-level reward.
+Fix a training pair (x, y⋆) and let the student generate a trajectory ˆy ∼pS(· | x). At each position n, define the per-token
+reward:
+rn(x, ˆy) ≜log pT (ˆyn | x, y⋆, ˆy<n) −log pS(ˆyn | x, ˆy<n).
+This reward measures how much the privileged teacher prefers the sampled token ˆyn relative to the student. As stated in the
+main text, we treat rn (equivalently, the advantage An) as a constant with respect to θ when computing gradients—that is,
+we stop gradients through both pT and pS in the reward computation. Under this treatment, the gradient of Equation (9)
+takes the standard policy-gradient form:
+∇θL(θ) = −E(x,y⋆)∼S
+
+Eˆy∼pS(·|x)
+
+1
+|ˆy|
+|ˆy|
+X
+n=1
+rn(x, ˆy) ∇θ log pS(ˆyn | x, ˆy<n)
+
+
+
+,
+which corresponds to maximizing the expected per-token reward along on-policy student rollouts:
+JOP SD(θ) = E(x,y⋆)∼S
+
+Eˆy∼pS(·|x)
+
+1
+|ˆy|
+|ˆy|
+X
+n=1
+rn(x, ˆy)
+
+
+
+.
+This reward is dense: it provides a learning signal at every token position, regardless of whether the final answer is correct.
+Comparison.
+Both STaR and OPSD can be understood as policy-gradient methods, but their reward structures differ
+fundamentally. STaR uses a sequence-level indicator 1(y = y⋆) that assigns the same signal to all tokens; when all sampled
+trajectories are incorrect, the learning signal vanishes entirely. In contrast, OPSD provides a token-level reward rn at every
+position, enabling fine-grained credit assignment even when the final answer is wrong.
+15

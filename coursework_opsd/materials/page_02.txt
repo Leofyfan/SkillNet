@@ -1,0 +1,111 @@
+On-Policy Self-Distillation for Large Language Models
+Student Prompt
+only
+Student Policy
+and
+Teacher Prompt
+Teacher Policy
+On-Policy 
+Sample
+Learning Objective
+Per-Token Divergence
+Dataset
+Sample
+: Problem
+: CoT + Answer
+Large Language Model 
+On-Policy Self-Distillation
+Gradient only flow through
+the student's logits
+Evaluate with
+privileged
+information
+Construct two
+prompts for the
+same LLM
+Figure 1. Overview of On-Policy Self-Distillation (OPSD): Given a reasoning dataset S = {(xi, y⋆
+i )}N
+i=1, we instantiate two policies
+from the same LLM: a student policy pS(· | x) and a teacher policy pT (· | x, y⋆). The student generates an on-policy response
+ˆy ∼pS(· | x). Both policies then evaluate this trajectory to produce next-token distributions pS(· | x, ˆy<n) and pT (· | x, y⋆, ˆy<n) at
+each step n. The learning objective minimizes the per-token divergence D(pT ∥pS) along the student’s rollout. The divergence here can
+be forward KL, reverse KL or JSD. Crucially, gradients backpropagate only through the student’s logits, allowing the model to self-distil.
+by this, we instantiate both the teacher and student policies
+from a single LLM. The teacher policy is provided with
+privileged information y⋆, such as the ground-truth answer
+or a reference chain-of-thought, while the student policy
+conditions only on the problem x. Concretely, the teacher
+policy pT (· | x, y⋆) conditions on both the problem and
+the privileged answer, whereas the student policy pS(· | x)
+observes only the problem. We preserve the on-policy train-
+ing paradigm by sampling trajectories ˆy exclusively from
+the student policy, which then receives dense, token-level
+supervision from the privileged teacher policy.
+We therefore propose On-Policy Self-Distillation (OPSD),
+a framework in which a single model plays both teacher
+and student roles. The student samples its own trajectories
+ˆy ∼pS(· | x); we then compute the per-token divergence
+between the student and teacher distributions and minimize
+it over the student’s own rollouts. This formulation (i) uses
+on-policy supervision (the student’s own trajectories), (ii)
+provides dense per-token feedback, (iii) exploits ground-
+truth solutions y⋆, and (iv) requires no separate teacher
+model. The learning process is captured by the loss
+LOPSD(θ) = E(x,y⋆)∼S Eˆy∼pS(·|x)
+|ˆy|
+X
+n=1
+D
+
+pT (· | x, y⋆, ˆy<n)
+ pS(· | x, ˆy<n)
+
+.
+(1)
+In summary, our contributions are as follows:
+• We introduce On-Policy Self-Distillation (OPSD), a novel
+framework that enables a single model to act as both
+teacher and student, leveraging ground-truth answers to
+provide dense token-level supervision on student rollouts.
+• We introduce a per-token pointwise KL clipping mecha-
+nism that stabilizes training and improves performance as
+we find stylistic tokens can dominate the training signal
+of math tokens.
+• We evaluate OPSD on three competition-level mathemat-
+ical reasoning tasks, demonstrating that it matches the
+performance of GRPO with significantly improved token
+efficiency and outperform supervised fine-tuning.
+• We analyze the impact of different divergence objec-
+tives, the effect of student generation length, and stu-
+dent–teacher generation styles.
+2. Background
+2.1. Knowledge Distillation for Autoregressive Large
+Language Models
+Knowledge distillation transfers knowledge from a larger
+teacher model to a smaller student model by training the
+student to mimic the teacher’s behavior (Hinton et al.,
+2015; Kim & Rush, 2016; Sanh et al., 2019). The core
+insight is that the teacher’s soft probability distribution
+over classes contains richer information than hard labels
+alone, as it reveals the teacher’s learned similarities be-
+tween classes. For auto-regressive language models, given
+a dataset S = {(x, y⋆)} where x denotes an input and y⋆is
+the corresponding reference output, both teacher pT and stu-
+dent pS define token-level distributions over vocabulary V.
+Traditional supervised distillation minimizes a divergence
+D between teacher and student distributions averaged over
+a fixed dataset:
+LSupervised Distillation(θ) = E(x,y)∼S[D(pT ∥pS)(y|x)],
+(2)
+where
+D(pT ∥pS)(y|x)
+=
+1
+|y|
+P|y|
+n=1 D(pT (·|y<n, x)∥pS(·|y<n, x))
+measures
+per-token discrepancy. However, this off-policy approach
+suffers from distribution mismatch: the student encounters
+different partial sequences y<n during auto-regressive
+2

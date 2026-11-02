@@ -1,0 +1,110 @@
+{
+  "started_at": "2026-11-02T09:31:52.012234+00:00",
+  "endpoint": "http://api-skillnet.openkg.cn",
+  "sdk": "skillnet-ai 0.1.4",
+  "parameters": {
+    "q": "paper reading",
+    "mode": "keyword",
+    "limit": 3
+  },
+  "status": "success",
+  "results": [
+    {
+      "skill_name": "read-paper",
+      "skill_description": "Read a paper from the papertrail library. Finds the paper, shows its summary, and reads relevant sections into context.",
+      "author": "be-green",
+      "stars": 0,
+      "skill_url": "https://github.com/be-green/papertrail/blob/50ce92c871218a197b548751bd69e9007a8e7b3d/skills/read-paper",
+      "category": "Research",
+      "evaluation": {
+        "safety": {
+          "level": "Good",
+          "reason": "The SKILL.md describes only benign actions (finding a paper, summarizing metadata, and reading sections) and contains no destructive or security-risking operations, e.g., steps are limited to calling get_paper_metadata, search_library, and read_paper."
+        },
+        "completeness": {
+          "level": "Average",
+          "reason": "The document specifies a clear high-level workflow (find paper, present metadata/summary, read sections) and what to present, but it omits details about failure modes, selection criteria for the \"best match\", exact read_paper line-range conventions, and limits on how much to read."
+        },
+        "executability": {
+          "level": "Good",
+          "reason": "This is an instruction-only Skill with concrete API actions named (get_paper_metadata, search_library, read_paper) and clear step-by-step instructions for choosing a bibtex key vs. search, so an agent can follow them with typical tooling."
+        },
+        "cost_awareness": {
+          "level": "Good",
+          "reason": "The described workflow is lightweight (reading paper metadata and selected line ranges) and the SKILL.md does not propose heavy or repeated processing, so it is naturally low-cost."
+        },
+        "maintainability": {
+          "level": "Good",
+          "reason": "The Skill has a narrow, modular scope (find, summarize, read) and explicit steps to adjust behavior (e.g., choose sections to read based on user interest), making it straightforward to adapt or compose with other Skills."
+        }
+      },
+      "repo_name": "be-green/papertrail",
+      "skill_dir": "be-green/papertrail/skills/read-paper"
+    },
+    {
+      "skill_name": "read-paper",
+      "skill_description": "Read a research paper and extract structured notes. Use when analyzing papers for a survey.",
+      "author": "JiadingGai",
+      "stars": 0,
+      "skill_url": "https://github.com/JiadingGai/exercise/blob/4d08cf2b7d142cb67297c5d772c39b74f8e21a2d/AGENTS/CLAUDE/paper_reading_agent/.claude/skills/read-paper",
+      "category": "Research",
+      "evaluation": {
+        "safety": {
+          "level": "Average",
+          "reason": "The skill works in a benign domain and includes a startup safety check to stop if the document-loader MCP is unavailable, but allowed-tools explicitly includes Bash (and other powerful tools) which is broader than strictly needed and lowers the safety profile."
+        },
+        "completeness": {
+          "level": "Good",
+          "reason": "The SKILL.md specifies a clear multi-pass reading procedure, startup assertion, file/prioritization order, exact output template and memory-storage snippets, and quality checks, covering the essential steps and failure mode for missing document-loader MCP."
+        },
+        "executability": {
+          "level": "Good",
+          "reason": "The workflow is concrete with callable MCP functions (mcp__document-loader__read_document), example grep commands for finding repos, explicit save paths and template, and allowed-tools that match required operations, so an agent could follow and execute it."
+        },
+        "cost_awareness": {
+          "level": "Average",
+          "reason": "The SKILL.md mentions processing a 'batch' of papers but does not specify size limits, sampling, or other explicit controls for large volumes or very large PDFs, so cost and compute concerns are not fully addressed."
+        },
+        "maintainability": {
+          "level": "Good",
+          "reason": "The skill has a narrow, modular scope (passes, template, memory API calls) and provides explicit templates and code snippets for entity/relation creation, making it straightforward to adapt or extend."
+        }
+      },
+      "repo_name": "JiadingGai/exercise",
+      "skill_dir": "JiadingGai/exercise/AGENTS/CLAUDE/paper_reading_agent/.claude/skills/read-paper"
+    },
+    {
+      "skill_name": "read-paper",
+      "skill_description": "Find and thoroughly read a pathology foundation model paper from the papers/ directory. Use as a prerequisite before adding model information or magnification to the README.",
+      "author": "georg-wolflein",
+      "stars": 169,
+      "skill_url": "https://github.com/georg-wolflein/pathology-foundation-models/blob/ac95e0b665c5615571a70afd50ad39db5ca3f0c4/.claude/skills/read-paper",
+      "category": "Research",
+      "evaluation": {
+        "safety": {
+          "level": "Average",
+          "reason": "The Skill involves reading files and potentially web searches, which are benign, but it lacks explicit safeguards for verifying paper sources or handling sensitive data, and no disclaimer is provided for health/medical-related content in pathology papers."
+        },
+        "completeness": {
+          "level": "Average",
+          "reason": "The workflow is detailed with steps for finding, reading, and gathering information, but it lacks input validation for missing titles or non-existent papers, and does not specify how to handle errors like inaccessible GitHub repositories."
+        },
+        "executability": {
+          "level": "Good",
+          "reason": "This is an instruction-only skill with clear, actionable steps using typical LLM tools like file reading and web searches; the absence of runnable scripts is acceptable as it does not require code execution."
+        },
+        "cost_awareness": {
+          "level": "Good",
+          "reason": "The task involves reading PDFs and checking web sources, which is inherently low-cost with no indication of heavy computation, large datasets, or expensive external services."
+        },
+        "maintainability": {
+          "level": "Average",
+          "reason": "The scope is narrow and inputs are defined, but it is tightly coupled to a specific directory structure (papers/) and assumes certain file naming conventions, making adaptation to other contexts non-trivial."
+        }
+      },
+      "repo_name": "georg-wolflein/pathology-foundation-models",
+      "skill_dir": "georg-wolflein/pathology-foundation-models/.claude/skills/read-paper"
+    }
+  ],
+  "elapsed_seconds": 0.307
+}

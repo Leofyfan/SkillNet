@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/zjunlp/SkillNet",
+  "git_head": "ec1488b37ba4bd5b0820b1b1e2dee2f3a4d9b092",
+  "source_directory": "skillnet-ai",
+  "copied_at": "2026-11-02T09:38:46.112513+00:00",
+  "version": "0.1.4",
+  "note": "Unmodified SDK source and packaging metadata; tests/build products omitted; installed editable because web/static is absent."
+}
