@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-02T09:42:08.425292+00:00",
+  "checked_at": "2026-11-07T10:06:39.336080+00:00",
   "status": "passed",
   "members": 123,
-  "archive_size_bytes": 2601935,
-  "archive_sha256": "08cca8ae28e04c4a71400a108810e4faa1c6441d21ead68c21c92789eb347f0d",
+  "archive_size_bytes": 2617279,
+  "archive_sha256": "01d7ab81f5514b9633fbf3b15b3b616e6f724bd8e588234bb9fff145dc1aded7",
   "checks": [
     "credentials/configuration exclusion",
     "ZIP CRC",
@@ -15,5 +15,6 @@
     "bytecode",
     "build/egg-info",
     "ZIP itself"
-  ]
+  ],
+  "report_update": "Expanded report contents; original experiment usage and timing preserved."
 }
